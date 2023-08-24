@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Specialization: MyString
+  avalible_time: 2023-08-19 22:41:30
+  end_avalibletime: 2023-08-19 22:41:30
+
+two:
+  Specialization: MyString
+  avalible_time: 2023-08-19 22:41:30
+  end_avalibletime: 2023-08-19 22:41:30
