@@ -4,8 +4,4 @@ class Medicine < ApplicationRecord
 
     has_one_attached :image
 
-
-    # def image_url
-    #     images
-    # end
 end

@@ -1,4 +1,6 @@
 class Api::V1::MedicinesController < ApplicationController
+  before_action :authenticate_request
+  before_action :current_user
   def index
     medicines = Medicine.all.with_attached_image
       medicine_with_image = medicines.map do |medicine|

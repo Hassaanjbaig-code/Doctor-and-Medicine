@@ -1,4 +1,7 @@
 class Api::V1::PatientsController < ApplicationController
+  before_action :authenticate_request
+  before_action :current_user
+
   def index
     @patients = Patient.all
     render json: @patients.as_json(only: [:symptoms, :age, :doctor_id], methods: [:patient_name]), status: :ok
@@ -11,6 +14,7 @@ class Api::V1::PatientsController < ApplicationController
 
   def create
     @patient = Patient.new(patient_params)
+    @patient.user_id = @current_user.id
     if @patient.save
       render json: @patient, status: :created
     else
@@ -30,6 +34,6 @@ class Api::V1::PatientsController < ApplicationController
   private
 
   def patient_params
-    params.permit(:symptoms, :age, :user_id, :doctor_id)
+    params.permit(:symptoms, :age, :doctor_id)
   end
 end

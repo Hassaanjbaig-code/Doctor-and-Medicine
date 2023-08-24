@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+
+  post '/login', to: 'authentication#login'
+  post '/signup', to: 'api/v1/users#create'
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :create, :edit, :destroy] 
+      resources :users, only: [:index, :edit, :destroy] 
       resources :doctors, only: [ :index, :show, :create, :edit ]
        resources :patients, only: [ :index, :show, :create, :edit ]
         resources :appointments, only: [ :index, :create, :edit, :destroy ]

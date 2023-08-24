@@ -1,4 +1,6 @@
 class Api::V1::AppointmentsController < ApplicationController
+  before_action :authenticate_request
+  before_action :current_user
   def index
     appointments = Appointment.all
     render json: appointments

@@ -1,4 +1,6 @@
 class Api::V1::DoctorsController < ApplicationController
+before_action :authenticate_request
+before_action :current_user
   def index
   @doctors = Doctor.all
   render json: @doctors.as_json(only: [:id, :specialization, :clinic_address, :clinic_name, :clinic_phone_number, :available_time_date, :end_of_duty], methods: [:doctor_name]), status: :ok
@@ -11,6 +13,7 @@ end
 
   def create
     @doctor = Doctor.new(doctor_params)
+    @doctor.user_id = @current_user.id
      if @doctor.available_time_date < @doctor.end_of_duty && 
         @doctor.available_time_date > DateTime.now 
     if @doctor.save
