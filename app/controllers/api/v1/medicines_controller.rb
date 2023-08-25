@@ -20,8 +20,21 @@ class Api::V1::MedicinesController < ApplicationController
   end
 
   def patient_medicines
-    medicines = Medicine.where(patient_id: params[:id])
-    render json: medicines
+    medicines = Medicine.where(patient_id: params[:id]).with_attached_image
+    medicine_with_image = medicines.map do |medicine|
+      medicine_hash = {
+        id: medicine.id,
+        name: medicine.name,
+        milligrams: medicine.milligrams,
+        dose: medicine.dose,
+        time_to_take: medicine.time_to_take,
+        doctor_id: medicine.doctor_id,
+        created_at: medicine.created_at
+      }
+      medicine_hash[:image_url] = url_for(medicine.image) if medicine.image.attached?
+      medicine_hash
+    end
+    render json: medicine_with_image
   end
 
   def create
